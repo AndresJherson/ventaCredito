@@ -1,0 +1,30 @@
+@if ( vm$ | async; as vm ) {
+
+    <i class="bi bi-three-dots-vertical btn btn-light !tw-text-base !tw-shadow"
+        (click)="clickContainer( $event )"
+        #container></i>
+    
+    @if ( isContainerActive ) {
+    
+        <div class="tw-grid tw-max-h-[200px] tw-overflow-x-auto tw-absolute tw-top-full tw-right-0 tw-z-30 tw-bg-white tw-border-[1px] tw-border-gray-200 tw-rounded-md tw-shadow">
+        
+            @for ( bind of vm.buttons; track $index) {
+        
+                <div class="tw-min-h-[30px] tw-flex tw-items-center tw-gap-2 tw-px-2 tw-cursor-pointer tw-text-base hover:tw-bg-gray-200" 
+                    (click)="executeAction( $event, bind )">
+        
+                    <i class="bi bi-chevron-right"></i>
+                    <div class="titulo">{{ bind.title }}</div>
+        
+                </div>
+        
+            }
+            @empty {
+                <div class="tw-min-h-[30px] tw-flex tw-items-center tw-gap-2 tw-px-2 tw-cursor-pointer tw-text-base">No puede realizar ninguna acción</div>
+            }
+        
+        </div>
+    
+    }
+
+}

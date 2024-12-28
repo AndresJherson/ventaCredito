@@ -1,0 +1,33 @@
+<div class="tw-flex tw-justify-between tw-items-center">
+    <h2 class="tw-text-1xl tw-font-bold">MENSAJE!</h2>
+    <i class="bi bi-x-lg btn btn-light !tw-text-base" (click)="close( $event )"></i>
+</div>
+
+
+<hr style="margin: 0;"/>
+
+
+<div>
+    <p class="tw-text-base">{{ mensaje }}</p>
+</div>
+
+
+<hr style="margin: 0;"/>
+
+
+<div class="tw-flex tw-justify-end tw-gap-3">
+
+    @for (bind of dataBindingButtons; track $index) {
+
+        <button type="button"
+            [class]="'!tw-text-base ' + bind.class"
+            (click)="bind.onClick( $event )">{{ bind.title }}</button>
+
+    }
+    @empty {
+
+        <button type="button" class="btn btn-secondary !tw-text-base" (click)="close( $event )">Cerrar</button>
+        
+    }
+
+</div>

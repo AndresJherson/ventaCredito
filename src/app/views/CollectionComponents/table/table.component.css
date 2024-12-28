@@ -1,0 +1,46 @@
+:host {
+    max-height: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    
+    @apply tw-p-4 tw-rounded tw-shadow-md tw-gap-4;
+}
+
+table {
+    & th {
+        @apply tw-bg-blue-950 tw-py-2 tw-px-4 tw-text-white tw-font-bold tw-border-r-[1px] tw-border-gray-200 tw-cursor-pointer 
+        first:tw-rounded-tl 
+        last:tw-border-r-0 last:tw-rounded-tr;
+    }
+
+    & tbody {
+        
+        & tr {
+
+            & td {
+                @apply tw-bg-white tw-border-r-[1px] last:tw-border-r-0 tw-border-gray-200;
+
+                .x-value {
+                    @apply tw-h-full tw-w-full tw-py-1 tw-px-2 tw-text-left;
+                }
+            }
+        }
+
+        & tr:nth-child(even) {
+        
+            & td {
+                @apply tw-bg-gray-100;
+            }
+        
+        }
+
+        & tr.tr-click {
+
+            & td {
+                @apply tw-bg-gray-400 tw-text-white;
+            }
+        }
+    }
+}

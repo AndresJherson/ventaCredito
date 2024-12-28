@@ -1,0 +1,9 @@
+<ng-template #wrapper let-button="button">
+
+  <button type="button"
+      [className]="'!tw-text-base tw-h-max tw-shadow-sm' + button.class"
+      (click)="button.onClick( $event )">{{ button.title }}</button>
+      
+</ng-template>
+
+<ng-container #vcr></ng-container>

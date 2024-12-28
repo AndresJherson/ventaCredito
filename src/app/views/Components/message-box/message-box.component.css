@@ -1,0 +1,5 @@
+:host {
+    min-width: 25%;
+
+    @apply tw-flex tw-flex-col tw-gap-2 tw-p-4 tw-bg-white tw-rounded tw-shadow;
+}

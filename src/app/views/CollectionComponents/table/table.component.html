@@ -1,0 +1,157 @@
+@if ( vm$ | async; as vm) {
+
+    @if ( vm.isHeadActive ) {
+        
+        <div class="tw-flex tw-justify-between tw-items-center tw-gap-4">
+    
+            <div class="tw-flex tw-items-center tw-gap-2">
+
+                @if ( vm.isCloseButtonActive ) {
+                    <i class="bi bi-arrow-bar-left btn btn-light !tw-text-base tw-shadow-sm" 
+                        (click)="close( $event )"></i>
+                }
+        
+                <h4 class="tw-text-1xl">{{ vm.title }}</h4>
+                
+            </div>
+    
+    
+            <div class="tw-flex tw-gap-2">
+
+                <app-input-search 
+                    [store]="secondStore"
+                    [vm$]="inputSearchComponentVm$"
+                    (onSearch)="searchItem( $event )"/>
+    
+                <i class="bi bi-arrow-repeat tw-flex tw-items-center tw-p-2 tw-text-base tw-text-white tw-bg-blue-950 tw-cursor-pointer tw-rounded tw-shadow-sm"
+                    (click)="readItems( $event )"></i>
+
+                <app-buttons-menu [vm$]="buttonsMenuComponentVm$"/>
+                
+            </div>
+    
+        </div>
+    
+    }
+    
+
+    <div class="tw-flex tw-max-w-full tw-overflow-hidden 
+        tw-shadow tw-self-center">
+
+        <div class="tw-overflow-auto">
+                
+            <table class="tw-border-collapse">
+                <thead class="tw-relative">
+                    <tr class="tw-sticky tw-top-0 tw-z-20">
+        
+                        @if ( vm.stateRow !== StateRowTableComponent.none ) {
+        
+                            @if ( vm.stateRow === StateRowTableComponent.checkBox ) {
+    
+                                <th class="tw-sticky tw-left-0 tw-z-10 tw-p-0"
+                                    (click)="clickFirstColumnTh( $event, inputCheckTh )">
+    
+                                    <input type="checkbox"
+                                        #inputCheckTh>
+                                </th>
+    
+                            }
+                            @else {
+                                <th></th>
+                            }
+                            
+                        }
+                            
+                        @for (bind of vm.bindingProperties; track $index) {
+                            <th [class]="( bind.behavior === PropBehavior.number ) ? 'tw-text-right' : 'tw-text-left'"
+                                (click)="sortColumn( $event, bind, $index )">
+        
+                                <div class="tw-flex tw-gap-2">
+                                    <div class="tw-text-base">{{ bind.title }}</div>
+                                    <div class="tw-grid">
+                                        <i [ngClass]="{
+                                            'bi bi-caret-up-fill tw-text-[6px]': true,
+                                            'tw-text-yellow-200': selectedColumnIndex === $index &&
+                                                                    stateColumn === StateColumnTableComponent.ascending
+                                        }"></i>
+                                        <i [ngClass]="{
+                                            'bi bi-caret-down-fill tw-text-[6px]': true,
+                                            'tw-text-yellow-200': selectedColumnIndex === $index &&
+                                                                    stateColumn === StateColumnTableComponent.descending
+                                        }"></i>
+                                    </div>
+                                </div>
+    
+                            </th>
+                        }
+        
+                    </tr>
+                </thead>
+                <tbody #tableBody>
+            
+                    @for (item of data; track _rowIndex; let _rowIndex = $index) {
+                        <tr [ngClass]="{
+                                'tr-click': item === selectedItem,
+                            }" 
+                            #rowCollection>
+            
+                            @if ( vm.stateRow !== StateRowTableComponent.none ) {
+        
+                                <td class="tw-sticky tw-left-0 tw-z-10 tw-cursor-pointer tw-text-base tw-text-center"
+                                    (click)="clickRow( $event, item, _rowIndex )">
+    
+                                    @if ( vm.stateRow === StateRowTableComponent.select ) {
+                                    
+                                        <i class="bi bi-caret-right-fill"></i>
+                                    
+                                    }
+                                    @else if ( vm.stateRow === StateRowTableComponent.checkBox ) {
+                                        
+                                        <input type="checkbox"
+                                            class="form-check-input"
+                                            [checked]="item.isChecked">
+                                    
+                                    }
+                                    @else if ( vm.stateRow === StateRowTableComponent.radioButton ) {    
+    
+                                        <input type="radio"
+                                            [name]="'TableComponent_' + instanceId"
+                                            class="form-check-input"
+                                            [checked]="item.isChecked">
+                                            
+                                    }
+    
+                                </td>
+        
+                            }
+            
+                            @for (bind of vm.bindingProperties; track _cellIndex; let _cellIndex = $index ) {
+            
+                                <td (click)="clickCell( $event, _rowIndex, _cellIndex, item )" >
+            
+                                    @if ( bind.behavior === PropBehavior.number ) {
+                                        <div class="x-value !tw-text-right">{{ bind.getValue( item ) }}</div>
+                                    }
+                                    @else {
+                                        <div class="x-value">{{ bind.getValue( item ) }}</div>
+                                    }
+            
+                                </td>
+            
+                            }
+            
+                        </tr>
+                    }
+            
+                </tbody>
+            </table>
+        
+        </div>
+
+    </div>
+
+
+    
+    <app-buttons-footer [vm$]="buttonsFooterComponentVm$"/>
+
+}

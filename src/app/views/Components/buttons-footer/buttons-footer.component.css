@@ -1,0 +1,7 @@
+:host {
+  @apply tw-flex tw-justify-end tw-gap-2;
+}
+
+:host( .hidden ) {
+  display: none;
+}

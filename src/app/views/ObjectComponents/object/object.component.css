@@ -1,0 +1,5 @@
+:host {
+    max-height: 100%;
+    max-width: 100%;
+    @apply tw-p-4 tw-bg-white tw-rounded tw-shadow-md tw-flex tw-flex-col tw-gap-4;
+}

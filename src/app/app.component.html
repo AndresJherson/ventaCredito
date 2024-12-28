@@ -1,0 +1,40 @@
+<div class="tw-fixed tw-left-0 tw-right-0 tw-top-0 tw-h-8 tw-bg-blue-900 tw-text-white tw-px-4"
+    #menuHorizontal>
+
+    <i class="bi bi-list tw-cursor-pointer tw-text-1xl"
+        (click)="isActiveMenu = !isActiveMenu"
+        ></i>
+
+</div>
+
+<div [ngClass]="{
+    'tw-fixed tw-left-0 tw-top-8 tw-bottom-0 tw-bg-black tw-text-white tw-z-[100]
+    tw-transition-all tw-ease-in-out tw-duration-[.5s]': true,
+    'tw-transform tw-translate-x-[-100%]': !isActiveMenu,
+    'tw-translate-x-0': isActiveMenu
+}"
+#menuVertical>
+
+@for (option of menuData; track $index) {
+
+    <div class="
+            tw-p-2 tw-cursor-pointer
+            hover:tw-bg-white hover:tw-bg-opacity-50
+        "
+        (click)="clickOption( option )">{{ option.title }}</div>
+
+}
+
+</div>
+
+
+<div overlayDirective 
+    [overlayService]="overlayService"
+    class="tw-fixed tw-top-8 tw-right-0 tw-bottom-0 tw-left-0 tw-p-8
+        tw-overflow-auto"></div> 
+
+
+
+<div [ngClass]="{
+    'tw-bg-black tw-opacity-50 tw-fixed tw-top-8 tw-right-0 tw-bottom-0 tw-left-0 tw-z-50': isActiveMenu
+}"></div>
